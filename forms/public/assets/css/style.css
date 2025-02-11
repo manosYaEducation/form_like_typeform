@@ -1,0 +1,136 @@
+/* public/assets/css/style.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f4f4;
+}
+
+header {
+    background: #3498db;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 0;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+.alert {
+    padding: 10px;
+    background: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+/* Estilos para la visualización de preguntas */
+.question-block {
+    margin-bottom: 25px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 15px;
+}
+
+.question-block p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.options label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Estilos para las tablas de administración */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.btn {
+    display: inline-block;
+    background: #3498db;
+    color: #fff;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background: #2980b9;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
