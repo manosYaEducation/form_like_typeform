@@ -26,7 +26,7 @@ class AdminController {
             $option_d = trim($_POST['option_d']);
             
             if(empty($question_text) || empty($option_a) || empty($option_b) || empty($option_c) || empty($option_d)){
-                $error = "Todos los campos son obligatorios.";
+                $error = "Tos los campos son obligatorios.";
             } else {
                 if($this->questionModel->createQuestion($question_text, $option_a, $option_b, $option_c, $option_d)){
                     header("Location: index.php?action=admin&admin_action=list");
