@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel de Preguntas</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Estilos mínimos para colocar el formulario a la derecha */
+    #mainContainer {
+      display: flex;         /* Para colocar tabla y formulario lado a lado */
+      gap: 20px;
+    }
+    #tableContainer {
+      flex: 2;               /* La tabla ocupa más espacio */
+      overflow-y: auto;      /* Si la tabla es muy grande, scroll vertical */
+    }
+    #questionFormContainer {
+      flex: 1;               /* El formulario ocupa menos espacio */
+      border: 1px solid #ccc;
+      padding: 10px;
+      display: none;         /* Oculto por defecto, se muestra al crear/editar */
+      background: #f9f9f9;
+    }
+    /* Opcional: Para que el formulario quede fijo aunque se mueva la tabla */
+    /*
+    #questionFormContainer {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    */
+  </style>
+</head>
+<body>
+  <h2>Gestión de Preguntas</h2>
+  <button id="btnNewQuestion">Nueva Pregunta</button>
+
+  <div id="mainContainer">
+    <!-- Sección Izquierda: Tabla de preguntas -->
+    <div id="tableContainer">
+      <table border="1" id="questionsTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Pregunta</th>
+            <th>Opción A</th>
+            <th>Opción B</th>
+            <th>Opción C</th>
+            <th>Opción D</th>
+            <th>Categoría</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Se llena con JS (questions_panel.js) -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Sección Derecha: Formulario de Agregar/Editar Pregunta -->
+    <div id="questionFormContainer">
+      <h3 id="formTitle">Nueva Pregunta</h3>
+      <input type="hidden" id="questionId">
+
+      <label>Pregunta:</label><br>
+      <textarea id="questionText" rows="2" style="width: 95%;"></textarea><br><br>
+
+      <label>Opción A:</label><br>
+      <input type="text" id="optionA" style="width: 95%;"><br><br>
+
+      <label>Opción B:</label><br>
+      <input type="text" id="optionB" style="width: 95%;"><br><br>
+
+      <label>Opción C:</label><br>
+      <input type="text" id="optionC" style="width: 95%;"><br><br>
+
+      <label>Opción D:</label><br>
+      <input type="text" id="optionD" style="width: 95%;"><br><br>
+
+      <label>Categoría:</label><br>
+      <select id="categorySelect" style="width: 95%;">
+        <!-- Se llena con las categorías via AJAX -->
+      </select><br><br>
+
+      <button id="btnSaveQuestion">Guardar</button>
+      <button id="btnCancel">Cancelar</button>
+    </div>
+  </div>
+
+  <script src="js/questions_panel.js"></script>
+</body>
+</html>

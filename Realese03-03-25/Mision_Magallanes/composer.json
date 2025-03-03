@@ -1,0 +1,18 @@
+{
+    "name": "prueb/proyecto-sostenible",
+    "autoload": {
+        "psr-4": {
+            "Prueb\\ProyectoSostenible\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mauricio",
+            "email": "mauricioguerrero14@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.9",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}

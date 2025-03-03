@@ -1,0 +1,60 @@
+<!-- modelo_negocio_questions.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Preguntas por Categoría</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+ <nav class="navbar">
+    <div class="logo">
+      <img src="img/logo.png" alt="">
+      <h1 id="logo">Magallanes <br><span>Sostenible</span></h1>
+    </div>
+    <div class="welcome-message">
+      <p>Bienvenido usuari@</p>
+    </div>
+    <div class="menu-icon">
+      &#9776; 
+    </div>
+  </nav>
+
+  
+
+  <section class="banner">
+    <a href="modelo_negocio.html" class="back-button">
+        <img class="back-img" src="img/back_button.png" alt="Botón de retroceso">
+    </a>
+    <h3 id="categorySubtitle" class="banner-subtitle"></h3>
+
+</section>
+
+
+  <div class="quiz-header">
+    <img src="img/calendario.png" alt="Ícono de calendario">
+    <span>03 de Marzo de 2025</span>
+</div>
+  
+
+  <!-- Botón para retroceder a la pregunta anterior -->
+<button id="prev">
+  <img src="img/back.png" alt="Anterior" width="30">
+</button>
+  <!-- Contenedor para el carrusel -->
+  <div id="sliderContainer" class="slider"></div>
+
+<!-- Contenedor donde mostraremos el puntaje final -->
+<div id="scoreContainer" style="display: none; font-size: 20px; color: green; margin-top: 20px;">
+  <!-- <button id="next">></button> -->
+        <button id="prev">
+            <img src="img/back.png" alt="Anterior" width="30">
+          </button>
+</div>
+
+  <!-- Incluir el JS que maneja la lógica -->
+  <script src="js/fetch_questions.js"></script>
+  </body>
+</html>
