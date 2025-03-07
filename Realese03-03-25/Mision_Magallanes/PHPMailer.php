@@ -67,10 +67,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         SELECT 
           SUM(
             CASE selected_option
-              WHEN 'A' THEN 4
-              WHEN 'B' THEN 3
-              WHEN 'C' THEN 2
-              WHEN 'D' THEN 1
+              WHEN 'A' THEN 1.5
+              WHEN 'B' THEN 0.99 
+              WHEN 'C' THEN 0.495
+              WHEN 'D' THEN 0
               ELSE 0
             END
           ) AS total_score
@@ -155,6 +155,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->CharSet = 'UTF-8';
         $mail->isHTML(true);
         $mail->Subject = 'Resumen de tu Encuesta de Modelo de negocio';
+
+        if ($finalScore > 75) {
+            $evaluationMessage = "¡Felicitaciones! La empresa ha sido evaluada en el <strong>nivel A. Modo Circular</strong> su puntaje final: {$finalScore}";
+        } elseif ($finalScore > 50 && $finalScore <= 75) {
+            $evaluationMessage = "¡Felicitaciones! La empresa ha sido evaluada en el <strong>nivel B. Modo de transición</strong> su puntaje final: {$finalScore}";
+        } elseif ($finalScore > 25 && $finalScore <= 50) {
+            $evaluationMessage = "La empresa ha sido evaluada en el <strong>nivel C. Replanteamiento estratégico</strong> su puntaje final: {$finalScore}";
+        } else {
+            $evaluationMessage = "La empresa ha sido evaluada en el <strong>nivel D. Replanteamiento estratégico</strong> su puntaje final: {$finalScore}";
+        }
 
         // 7. Armamos el cuerpo del correo con el puntaje final y la tabla de respuestas
         $mail->Body = "
@@ -244,14 +254,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <body>
         <div class='email-container'>
             <h2>Resumen de la Encuesta</h2>
-            <p>Estimado/a <strong>{$nombreRepresentante}</strong>,</p>
-            <p>Como representante de <strong>{$nombreEmpresa}</strong>, le informamos que ha completado la encuesta.</p>
-            <p>Su puntaje final es: <strong>{$finalScore}</strong>.</p>
-            <hr>
-            <h3>Detalle de sus respuestas:</h3>
-            {$answersHtml}
-            <hr>
-            <p>Gracias por participar.</p>
+        <p>Estimado/a <strong>{$nombreRepresentante}</strong>,</p>
+        <p>Como representante de <strong>{$nombreEmpresa}</strong>, le informamos que ha completado la encuesta.</p>
+        <p>{$evaluationMessage}</p>
+        <hr>
+        <h3>Detalle de sus respuestas:</h3>
+        {$answersHtml}
+        <hr>
+        <p>Gracias por participar.</p>
             <div class='footer'>
                 <p>Este es un correo automático, por favor no responda a este mensaje.</p>
             </div>
@@ -279,3 +289,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "message" => "Método no permitido"
     ]);
 }
+?>
