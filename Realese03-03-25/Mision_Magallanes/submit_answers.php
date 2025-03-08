@@ -39,6 +39,7 @@ try {
     try {
         $insertCount = 0;
         $updateCount = 0;
+        $totalScore = 0; // Variable para almacenar el puntaje total
         
         foreach ($answers as $ans) {
             if (!isset($ans['question_id']) || !isset($ans['selected_option'])) {
@@ -87,6 +88,9 @@ try {
                 $insertStmt->close();
             }
             $checkStmt->close();
+            
+            // Sumar el valor de la respuesta al puntaje total
+            $totalScore += (int)$selectedOption;
         }
         
         $conn->commit();
@@ -108,20 +112,36 @@ try {
         }
         $stmt2->close();
         
-        $response = [
-            "success" => true,
-            "hasNextCategory" => $hasNext,
-            "insertedCount" => $insertCount,
-            "updatedCount" => $updateCount
-        ];
-        
-        if ($hasNext && $nextCategoryId !== null) {
-            $response["nextCategoryId"] = $nextCategoryId;
+        // Si no hay más categorías, calcular la clasificación y redirigir a la pantalla final
+        if (!$hasNext) {
+            // Calcular la clasificación basada en el puntaje total
+            $classification = "Bajo"; // Clasificación por defecto
+            if ($totalScore >= 80) {
+                $classification = "Alto";
+            } elseif ($totalScore >= 50) {
+                $classification = "Medio";
+            }
+            
+            // Redirigir a la pantalla final con el puntaje y la clasificación
+            header("Location: respuestafinal.html?puntaje=$totalScore&clasificacion=$classification");
+            exit();
         } else {
-            $response["hasNextCategory"] = false;
+            // Si hay más categorías, devolver la respuesta JSON
+            $response = [
+                "success" => true,
+                "hasNextCategory" => $hasNext,
+                "insertedCount" => $insertCount,
+                "updatedCount" => $updateCount
+            ];
+            
+            if ($hasNext && $nextCategoryId !== null) {
+                $response["nextCategoryId"] = $nextCategoryId;
+            } else {
+                $response["hasNextCategory"] = false;
+            }
+            
+            echo json_encode($response);
         }
-        
-        echo json_encode($response);
         
     } catch (Exception $e) {
         $conn->rollback();

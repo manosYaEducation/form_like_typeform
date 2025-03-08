@@ -1,0 +1,195 @@
+/* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Fondo de la página */
+body {
+    background-image: url('img/new_bg.jpg'); /* Ruta de la imagen de fondo */
+    background-size: cover; /* Cubre todo el espacio disponible */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que se repita */
+    color: #000;
+    position: relative;
+}
+
+/* Efecto de cristal en el fondo */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+
+    z-index: -1;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #222;
+    padding: 0px 20px;
+    width: 100%;
+    border-bottom: 3px solid rgba(141, 255, 118, 0.5);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo img {
+    height: 60px;
+}
+
+#logo {
+    color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 0;
+    text-align: center;
+    padding: 10px;
+}
+
+#logo span {
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.menu-icon {
+    font-size: 30px;
+    color: rgb(141, 255, 118);
+    cursor: pointer;
+}
+
+.welcome-message {
+    margin-left: auto;
+    font-size: 16px;
+    color: #fff;
+    word-spacing: 40px;
+    padding-right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.welcome-message p {
+    margin: 0;
+}
+
+.titulo {
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+p{
+    color: white;
+}
+
+/* Contenedor dividido */
+.split-container {
+    display: flex;
+    height: calc(100vh - 60px); /* Resta la altura de la navbar */
+    overflow: hidden;
+}
+
+/* Imagen a la izquierda */
+.image-section {
+    width: 50%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Mensaje final a la derecha */
+.result-container {
+    width: 50%;
+    padding: 15%;
+    background: rgba(0, 0, 0, 0.26); /* Fondo semitransparente */
+    backdrop-filter: blur(10px); /* Efecto de cristal más pronunciado */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de cristal para el mensaje */
+.result-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(200px); /* Desenfoque más fuerte */
+    z-index: -1; /* Coloca la capa detrás del contenido */
+}
+
+.result-content {
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1; /* Asegura que el contenido esté por encima del fondo */
+}
+
+.result-content p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.result-content span {
+    font-weight: bold;
+    color: rgb(141, 255, 118);
+}
+
+.result-container input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background: #222;
+    color: white;
+    border: 1px solid rgba(141, 255, 118, 0.5);
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.4s, transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    z-index: 1; /* Asegura que el botón esté por encima del fondo */
+}
+
+.result-container input[type="submit"]:hover {
+    background: rgb(141, 255, 118);
+    color: #222;
+    transform: scale(1.03);
+    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
+}

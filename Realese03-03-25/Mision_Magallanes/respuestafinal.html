@@ -1,11 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Respuesta final</title>
+    <title>Resultado de la Encuesta</title>
+    <link rel="stylesheet" href="respuestafinal.css">
 </head>
+
 <body>
-    <h1>Respuesta final</h1>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo">
+            <h1 id="logo">Magallanes <br><span>Sostenible</span></h1>
+        </div>
+        <div class="welcome-message">
+            <p>Beneficios Pasos Testimonios Nosotros Blog</p>
+        </div>
+        <div class="menu-icon">
+            &#9776;
+        </div>
+    </nav>
+
+    <div class="split-container">
+        <!-- Mensaje final a la derecha -->
+        <div class="result-container">
+            <p class="titulo">¡Gracias por completar la encuesta!</p>
+            <div class="result-content">
+                <p>Tu puntaje obtenido es: <span id="puntaje">[Puntaje]</span></p>
+                <p>Tu clasificación es: <span id="clasificacion">[Clasificación]</span></p>
+            </div>
+            <form action="index.html" method="get">
+                <input type="submit" value="Volver al Inicio">
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        // Obtener los parámetros de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const puntaje = urlParams.get('puntaje');
+        const clasificacion = urlParams.get('clasificacion');
+
+        // Mostrar los datos en la pantalla
+        document.getElementById('puntaje').textContent = puntaje;
+        document.getElementById('clasificacion').textContent = clasificacion;
+    </script>
 </body>
+
 </html>
