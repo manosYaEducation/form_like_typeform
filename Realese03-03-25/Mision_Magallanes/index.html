@@ -2,61 +2,68 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encuesta de Nivel de Circularidad</title>
-    <link rel="stylesheet" href="css/login.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encuesta de Nivel de Circularidad</title>
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+  <link rel="shortcut icon" href="favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Magallanes Sostenible" />
+  <link rel="manifest" href="favicon/site.webmanifest" />
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="logo">
-            <img src="img/logo.png" alt="Logo">
-            <h1 id="logo">Magallanes <br><span>Sostenible</span></h1>
-        </div>
-        <div class="welcome-message">
-            <p>Beneficios   Pasos   Testimonios   Nosotros   Blog</p>
-        </div>
-        <div class="menu-icon">
-            &#9776;
-        </div>
-    </nav>
-
-    <div class="split-container">
-        <div class="form-container">
-            <p class="titulo">Por favor, ingrese los siguientes datos para enviar la encuesta de nivel de circularidad a la empresa:</p>
-
-            <form action="user_auth.php?action=login" method="post">
-              <div class="input-group">
-                <label for="nombreEmpresa">Nombre de empresa:</label>
-                <input type="text" id="nombreEmpresa" name="nombreEmpresa" required>
-              </div>
-            
-              <div class="input-group">
-                <label for="rutEmpresa">RUT de la empresa:</label>
-                <input type="text" id="rutEmpresa" name="rutEmpresa" required>
-              </div>
-            
-              <div class="input-group">
-                <label for="nombreRepresentante">Nombre del representante:</label>
-                <input type="text" id="nombreRepresentante" name="nombreRepresentante" required>
-              </div>
-            
-              <div class="input-group">
-                <label for="cargo">Cargo del representante:</label>
-                <!-- Importante: name="cargo" -->
-                <input type="text" id="cargo" name="cargo" required>
-              </div>
-            
-              <div class="input-group">
-                <label for="correo">Correo:</label>
-                <input type="email" id="correo" name="correo" required>
-              </div>
-            
-              <input type="submit" value="Continuar">
-            </form>
-        </div>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="img/logo.png" alt="Logo">
+      <h1 id="logo">Magallanes <br><span>Sostenible</span></h1>
     </div>
+    <div class="welcome-message">
+      <p>Beneficios Pasos Testimonios Nosotros Blog</p>
+    </div>
+    <div class="menu-icon">
+      &#9776;
+    </div>
+  </nav>
+
+  <div class="split-container">
+    <div class="form-container">
+      <p class="titulo">Por favor, ingrese los siguientes datos para enviar la encuesta de nivel de circularidad a la
+        empresa:</p>
+
+      <form action="user_auth.php?action=login" method="post">
+        <div class="input-group">
+          <label for="nombreEmpresa">Nombre de empresa:</label>
+          <input type="text" id="nombreEmpresa" name="nombreEmpresa" required>
+        </div>
+
+        <div class="input-group">
+          <label for="rutEmpresa">RUT de la empresa:</label>
+          <input type="text" id="rutEmpresa" name="rutEmpresa" required>
+        </div>
+
+        <div class="input-group">
+          <label for="nombreRepresentante">Nombre del representante:</label>
+          <input type="text" id="nombreRepresentante" name="nombreRepresentante" required>
+        </div>
+
+        <div class="input-group">
+          <label for="cargo">Cargo del representante:</label>
+          <!-- Importante: name="cargo" -->
+          <input type="text" id="cargo" name="cargo" required>
+        </div>
+
+        <div class="input-group">
+          <label for="correo">Correo:</label>
+          <input type="email" id="correo" name="correo" required>
+        </div>
+
+        <input type="submit" value="Continuar">
+      </form>
+    </div>
+  </div>
 
 </body>
 
