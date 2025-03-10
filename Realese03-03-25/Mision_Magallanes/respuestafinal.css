@@ -6,7 +6,8 @@
     font-family: "Roboto", sans-serif;
 }
 
-body, html {
+body,
+html {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -15,10 +16,14 @@ body, html {
 
 /* Fondo de la página */
 body {
-    background-image: url('img/new_bg.jpg'); /* Ruta de la imagen de fondo */
-    background-size: cover; /* Cubre todo el espacio disponible */
-    background-position: center; /* Centra la imagen */
-    background-repeat: no-repeat; /* Evita que se repita */
+    background-image: url('img/new_bg.jpg');
+    /* Ruta de la imagen de fondo */
+    background-size: cover;
+    /* Cubre todo el espacio disponible */
+    background-position: center;
+    /* Centra la imagen */
+    background-repeat: no-repeat;
+    /* Evita que se repita */
     color: #000;
     position: relative;
 }
@@ -97,14 +102,15 @@ body::before {
     color: white;
 }
 
-p{
+p {
     color: white;
 }
 
 /* Contenedor dividido */
 .split-container {
     display: flex;
-    height: calc(100vh - 60px); /* Resta la altura de la navbar */
+    height: calc(100vh - 60px);
+    /* Resta la altura de la navbar */
     overflow: hidden;
 }
 
@@ -128,8 +134,10 @@ p{
 .result-container {
     width: 50%;
     padding: 15%;
-    background: rgba(0, 0, 0, 0.26); /* Fondo semitransparente */
-    backdrop-filter: blur(10px); /* Efecto de cristal más pronunciado */
+    background: rgba(0, 0, 0, 0.26);
+    /* Fondo semitransparente */
+    backdrop-filter: blur(10px);
+    /* Efecto de cristal más pronunciado */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -137,6 +145,19 @@ p{
     align-items: center;
     position: relative;
     overflow: hidden;
+    opacity: 0;
+
+    transform: translateX(-100%);
+    animation: slideIn 1s ease-out forwards;
+}
+
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        /* Posición final */
+    }
 }
 
 /* Efecto de cristal para el mensaje */
@@ -149,15 +170,18 @@ p{
     height: 100%;
     background-size: cover;
     background-position: center;
-    filter: blur(200px); /* Desenfoque más fuerte */
-    z-index: -1; /* Coloca la capa detrás del contenido */
+    filter: blur(200px);
+    /* Desenfoque más fuerte */
+    z-index: -1;
+    /* Coloca la capa detrás del contenido */
 }
 
 .result-content {
     text-align: center;
     margin-bottom: 20px;
     position: relative;
-    z-index: 1; /* Asegura que el contenido esté por encima del fondo */
+    z-index: 1;
+    /* Asegura que el contenido esté por encima del fondo */
 }
 
 .result-content p {
@@ -171,8 +195,8 @@ p{
 }
 
 .result-container input[type="submit"] {
-    width: 100%;
-    padding: 10px;
+    width: auto;
+    padding: 10px 40px;
     margin: 10px 0;
     border: none;
     border-radius: 5px;
@@ -184,7 +208,8 @@ p{
     font-weight: bold;
     transition: background 0.4s, transform 0.3s, box-shadow 0.3s;
     position: relative;
-    z-index: 1; /* Asegura que el botón esté por encima del fondo */
+    z-index: 1;
+    /* Asegura que el botón esté por encima del fondo */
 }
 
 .result-container input[type="submit"]:hover {
