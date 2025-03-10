@@ -11,7 +11,8 @@ $dotenv->load();
 
 session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Permitir POST o GET
+if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET") {
 
     // 1. Tomar datos de la sesión
     $userRut             = $_SESSION['rut']                 ?? '';
@@ -20,10 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombreEmpresa       = $_SESSION['nombre_empresa']       ?? 'Su Empresa';
 
     if (empty($userEmail) || empty($userRut)) {
-        echo json_encode([
-            "success" => false,
-            "message" => "No se encontró correo o RUT del usuario en sesión."
-        ]);
+        // Si falta info, redirigimos con un mensaje de error en la URL
+        header("Location: respuestafinal.html?puntaje=0&clasificacion=ErrorSesion");
         exit;
     }
 
@@ -33,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = $db->getConnection();
 
     // 2.1. Verificar si se han respondido todas las preguntas
-    //     Comparar la cantidad total de preguntas con las respondidas por este usuario
     $sqlTotalQ = "SELECT COUNT(*) as totalQ FROM questions";
     $resTotalQ = $conn->query($sqlTotalQ);
     $rowTotalQ = $resTotalQ->fetch_assoc();
@@ -52,17 +50,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $answered = $rowAnswered['answered'] ?? 0;
     $stmtAnswered->close();
 
-    // Si no están respondidas todas, se retorna el error
+    // Si no están respondidas todas, redirigimos con un mensaje de error
     if ($answered < $totalQuestions) {
-        echo json_encode([
-            "success" => false,
-            "message" => "Debes responder todas las preguntas antes de recibir el correo."
-        ]);
+        header("Location: respuestafinal.html?puntaje=0&clasificacion=ErrorNoCompletado");
         exit;
     }
 
     // 3. Calcular el puntaje total
-    //    Sumar según la opción elegida: A=4, B=3, C=2, D=1
     $sqlScore = "
         SELECT 
           SUM(
@@ -85,7 +79,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $finalScore = $rowScore['total_score'] ?? 0;
     $stmtScore->close();
 
-    // 4. Recuperar todas las preguntas y respuestas del usuario
+    // 4. Determinar la clasificación (texto corto)
+    if ($finalScore > 75) {
+        $classification = "nivel A. Modo Circular";
+    } elseif ($finalScore > 50) {
+        $classification = "nivel B. Modo de transición";
+    } elseif ($finalScore > 25) {
+        $classification = "nivel C. Replanteamiento estratégico";
+    } else {
+        $classification = "nivel D. Replanteamiento estratégico";
+    }
+
+    // 5. Insertar el resultado en la tabla 'results'
+    $sqlInsert = "INSERT INTO results (correo, user_rut, resultado, clasificacion) VALUES (?, ?, ?, ?)";
+    $stmtInsert = $conn->prepare($sqlInsert);
+    $stmtInsert->bind_param("ssds", $userEmail, $userRut, $finalScore, $classification);
+    if (!$stmtInsert->execute()) {
+        // Si falla la inserción, redirigimos con un error
+        $errorMsg = urlencode("InsertError: " . $stmtInsert->error);
+        header("Location: respuestafinal.html?puntaje=0&clasificacion=$errorMsg");
+        exit;
+    }
+    $stmtInsert->close();
+
+    // 6. Recuperar todas las preguntas y respuestas del usuario
     $stmt = $conn->prepare("
         SELECT 
             q.question_text,
@@ -103,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // 5. Construir una tabla HTML con las preguntas y la respuesta seleccionada
+    // 7. Construir una tabla HTML con las preguntas y la respuesta seleccionada
     $answersHtml = "
         <table border='1' cellpadding='5' style='border-collapse: collapse; width: 100%;'>
           <thead>
@@ -117,9 +134,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     while ($row = $result->fetch_assoc()) {
         $questionText   = $row['question_text'];
-        $selectedLetter = $row['selected_option']; // 'A', 'B', 'C', 'D'
+        $selectedLetter = $row['selected_option'];
 
-        // Convertir la letra seleccionada a su texto correspondiente
         switch ($selectedLetter) {
             case 'A': $selectedText = $row['option_a']; break;
             case 'B': $selectedText = $row['option_b']; break;
@@ -138,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $answersHtml .= "</tbody></table>";
     $stmt->close();
 
-    // 6. Configurar y enviar el correo con PHPMailer
+    // 8. Enviar el correo
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
@@ -146,7 +162,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->SMTPAuth   = true;
         $mail->Username   = $_ENV['SMTP_USERNAME'];
         $mail->Password   = $_ENV['SMTP_PASSWORD'];
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Ajusta si usas TLS
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port       = $_ENV['SMTP_PORT'];
 
         $mail->setFrom($_ENV['SMTP_FROM_EMAIL'], $_ENV['SMTP_FROM_NAME']);
@@ -154,19 +170,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $mail->CharSet = 'UTF-8';
         $mail->isHTML(true);
-        $mail->Subject = 'Resumen de tu Encuesta de Modelo de negocio';
+        $mail->Subject = 'Resumen de tu Encuesta de Modelo de Negocio';
 
-        if ($finalScore > 75) {
-            $evaluationMessage = "¡Felicitaciones! La empresa ha sido evaluada en el <strong>nivel A. Modo Circular</strong> su puntaje final: {$finalScore}";
-        } elseif ($finalScore > 50 && $finalScore <= 75) {
-            $evaluationMessage = "¡Felicitaciones! La empresa ha sido evaluada en el <strong>nivel B. Modo de transición</strong> su puntaje final: {$finalScore}";
-        } elseif ($finalScore > 25 && $finalScore <= 50) {
-            $evaluationMessage = "La empresa ha sido evaluada en el <strong>nivel C. Replanteamiento estratégico</strong> su puntaje final: {$finalScore}";
-        } else {
-            $evaluationMessage = "La empresa ha sido evaluada en el <strong>nivel D. Replanteamiento estratégico</strong> su puntaje final: {$finalScore}";
-        }
-
-        // 7. Armamos el cuerpo del correo con el puntaje final y la tabla de respuestas
         $mail->Body = "
     <!DOCTYPE html>
     <html lang='es'>
@@ -251,42 +256,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         </style>
     </head>
-    <body>
-        <div class='email-container'>
-            <h2>Resumen de la Encuesta</h2>
+   <body>
+    <div class='email-container'>
+        <h2>Resumen de la Encuesta</h2>
         <p>Estimado/a <strong>{$nombreRepresentante}</strong>,</p>
         <p>Como representante de <strong>{$nombreEmpresa}</strong>, le informamos que ha completado la encuesta.</p>
-        <p>{$evaluationMessage}</p>
+        <p>Tu puntaje obtenido es: <strong>{$finalScore}</strong></p>
+        <p>Tu clasificación es: <strong>{$classification}</strong></p>
         <hr>
         <h3>Detalle de sus respuestas:</h3>
         {$answersHtml}
         <hr>
         <p>Gracias por participar.</p>
-            <div class='footer'>
-                <p>Este es un correo automático, por favor no responda a este mensaje.</p>
-            </div>
+        <div class='footer'>
+            <p>Este es un correo automático, por favor no responda a este mensaje.</p>
         </div>
-    </body>
+    </div>
+</body>
     </html>
 ";
 
         $mail->send();
-        echo json_encode([
-            "success" => true, 
-            "message" => "Correo enviado a $userEmail con el detalle de sus respuestas."
-        ]);
+        // Listo, el correo fue enviado: redirigimos a respuestafinal.html
+        // Pasamos puntaje y clasificación en la URL
+        $finalUrl = "respuestafinal.html?puntaje={$finalScore}&clasificacion=" . urlencode($classification);
+        header("Location: $finalUrl");
         exit;
+
     } catch (Exception $e) {
-        echo json_encode([
-            "success" => false, 
-            "message" => "Error al enviar el correo: " . $mail->ErrorInfo
-        ]);
+        // Si falla el correo, redirigimos con un error
+        $errorMail = urlencode($mail->ErrorInfo);
+        header("Location: respuestafinal.html?puntaje=0&clasificacion=$errorMail");
         exit;
     }
+
 } else {
-    echo json_encode([
-        "success" => false,
-        "message" => "Método no permitido"
-    ]);
+    // Si no es POST ni GET, se muestra el mensaje de error
+    header("Location: respuestafinal.html?puntaje=0&clasificacion=MetodoNoPermitido");
+    exit;
 }
 ?>

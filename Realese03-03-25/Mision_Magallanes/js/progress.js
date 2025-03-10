@@ -43,14 +43,14 @@ document.addEventListener("DOMContentLoaded", function() {
       link.appendChild(contentDiv);
 
       if (cat.completed === true) {
-        //efecto de apagado
+        // Efecto de apagado
         link.classList.add('completed-section');
       }
 
       container.appendChild(link);
     });
 
-    // Crear la tarjeta final
+    // Crear la tarjeta final (botón para enviar respuestas)
     const finalDiv = document.createElement('div');
     finalDiv.classList.add('quiz-item', 'submit-button');
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
     finalBtn.type = "button";
     finalBtn.classList.add('send-answers-btn');
     finalBtn.textContent = "Enviar respuesta";
-    // OJO: Ya NO lo deshabilitamos aquí.
+    // Ya NO lo deshabilitamos aquí.
 
     finalContent.appendChild(finalH3);
     finalContent.appendChild(finalImg);
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
     updateProgress();
     setInterval(updateProgress, 5000);
 
-    // Manejador de click
+    // Manejador de click del botón final
     finalBtn.addEventListener('click', function() {
       // 1) Verificamos el progreso en tiempo real
       fetch('progress.php')
@@ -96,21 +96,9 @@ document.addEventListener("DOMContentLoaded", function() {
             alert("Debes responder todas las preguntas para recibir el correo.");
             return;
           }
-          // 3) Si es 100, enviar correo
-          fetch('PHPMailer.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({})
-          })
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              alert("Se ha enviado el sumario a su correo.");
-            } else {
-              alert("Error al enviar el sumario: " + data.message);
-            }
-          })
-          .catch(err => console.error("Error al enviar el sumario:", err));
+          // 3) Si es 100, redirigir directamente a PHPMailer.php
+          //    PHPMailer.php se encargará de enviar el correo y redirigir a respuestafinal.html
+          window.location.href = "PHPMailer.php";
         })
         .catch(err => {
           console.error("Error al verificar el progreso:", err);
@@ -133,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
           if (fill) fill.style.width = pct + "%";
           if (percentText) percentText.textContent = pct + "%";
 
-          // NOTA: Aquí ya NO deshabilitamos el botón. 
+          // Ya NO deshabilitamos el botón.
           // Confiamos en el click handler para mostrar el mensaje si < 100.
         } else {
           console.error("Progress error:", data.message);
