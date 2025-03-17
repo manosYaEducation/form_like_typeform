@@ -33,8 +33,9 @@
         <div class="result-container">
             <p class="titulo">¡Gracias por completar la encuesta!</p>
             <div class="result-content">
-                <p>Tu puntaje obtenido es: <span id="puntaje">[Puntaje]</span></p>
-                <p>Tu clasificación es: <span id="clasificacion">[Clasificación]</span></p>
+                <p>Tu puntaje obtenido es: <span id="puntaje"></span></p>
+                <p>Tu clasificación es: <span id="clasificacion"></span></p>
+                <p>Nota: <span id="mensaje"></span></p>
             </div>
             <form action="index.html" method="get">
                 <input type="submit" value="Volver al Inicio">
@@ -47,6 +48,7 @@
         const params = new URLSearchParams(window.location.search);
         document.getElementById("puntaje").textContent = params.get("puntaje") || "No disponible";
         document.getElementById("clasificacion").textContent = params.get("clasificacion") || "No disponible";
+        document.getElementById("mensaje").textContent = params.get("mensaje") || "No disponible";
     </script>
     <script src="js/auth.js"></script>
 

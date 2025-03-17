@@ -81,13 +81,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
 
     // 4. Determinar la clasificación (texto corto)
     if ($finalScore == 75) {
-        $classification = "nivel A. Modo Circular";
+        $classification = "NIVEL A: MODO CIRCULAR ♻️";
     } elseif ($finalScore > 50) {
-        $classification = "nivel B. Modo de transición";
+        $classification = "NIVEL B: EN RUTA SOSTENIBLE 🌱";
     } elseif ($finalScore > 25) {
-        $classification = "nivel C. Replanteamiento estratégico";
+        $classification = "NIVEL C: EN PROCESO DE TRANSFORMACIÓN 🔄";
     } else {
-        $classification = "nivel D. Replanteamiento estratégico";
+        $classification = "NIVEL D: ALERTA AMBIENTAL 🛑";
+    }
+
+
+    if ($finalScore == 75) {
+        $message = "Modo Circular Activado 🌍 Eres un referente en sostenibilidad y economía circular. Tu compromiso inspira el cambio. ¡Sigue liderando el camino hacia un Magallanes más sostenible!";
+    } elseif ($finalScore > 50) {
+        $message = "¡Casi llegas a la cima! ✨ Estás en el camino correcto hacia la sustentabilidad. Con pequeños ajustes, puedes alcanzar el máximo impacto positivo. ¡No pares ahora!";
+    } elseif ($finalScore > 25) {
+        $message = "ALERTA AMBIENTAL 🛑 Buen comienzo, pero queda camino 🌟 Estás dando los primeros pasos hacia la economía circular. Es momento de ajustar procesos y tomar decisiones más verdes. ¡Cada esfuerzo cuenta!";
+    } else {
+        $message = "🌍 Es momento de repensar tus prácticas. La sostenibilidad no es una opción, es una necesidad. ¿Aceptas el desafío de transformar tu empresa y ser parte del cambio?";
     }
 
     // 5. Insertar el resultado en la tabla 'results'
@@ -264,6 +275,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
         <p>Tu puntaje obtenido es: <strong>{$finalScore}</strong></p>
         <p>Tu clasificación es: <strong>{$classification}</strong></p>
         <hr>
+        <p>{$message}</p>
+        <hr>
         <h3>Detalle de sus respuestas:</h3>
         {$answersHtml}
         <hr>
@@ -279,8 +292,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
         $mail->send();
         // Listo, el correo fue enviado: redirigimos a respuestafinal.html
         // Pasamos puntaje y clasificación en la URL
-        $finalUrl = "respuestafinal.html?puntaje={$finalScore}&clasificacion=" . urlencode($classification);
-        header("Location: $finalUrl");
+        $finalUrl = "respuestafinal.html?puntaje={$finalScore}&clasificacion=" . urlencode($classification) . "&mensaje=" . urlencode($message);
+header("Location: $finalUrl");
+exit;
+
         exit;
 
     } catch (Exception $e) {
