@@ -42,12 +42,14 @@
         </div>
     </div>
 
+    <!-- Extraer los parámetros de la URL y mostrarlos -->
     <script>
         const params = new URLSearchParams(window.location.search);
         document.getElementById("puntaje").textContent = params.get("puntaje") || "No disponible";
         document.getElementById("clasificacion").textContent = params.get("clasificacion") || "No disponible";
-        </script>
-        
+    </script>
+    <script src="js/auth.js"></script>
+
 </body>
 
 </html>

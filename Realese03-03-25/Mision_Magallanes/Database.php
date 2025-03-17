@@ -11,15 +11,11 @@ class Database {
 
     public function __construct(){
         // Se añade el puerto en la conexión
-        //$this->connection = new mysqli($this->host, $this->user, $this->password, $this->database, $this->port);
-$this->connection = new mysqli($this->host, $this->user,$this->password,$this->database);        
+        $this->connection = new mysqli($this->host, $this->user, $this->password, $this->database, $this->port);
 
         if($this->connection->connect_error){
             die("Error de conexión: " . $this->connection->connect_error);
         }
-        
-    // Establecer la codificaci��n de caracteres a UTF-8
-    $this->connection->set_charset("utf8");
     }
 
     public static function getInstance(){

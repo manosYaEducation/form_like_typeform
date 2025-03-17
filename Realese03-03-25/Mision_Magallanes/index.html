@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Encuesta de Nivel de Circularidad</title>
   <link rel="stylesheet" href="css/login.css">
   <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
@@ -33,7 +31,7 @@
       <p class="titulo">Por favor, ingrese los siguientes datos para enviar la encuesta de nivel de circularidad a la
         empresa:</p>
 
-      <form action="user_auth.php?action=login" method="post">
+      <form id="loginForm" action="user_auth.php?action=login" method="post">
         <div class="input-group">
           <label for="nombreEmpresa">Nombre de empresa:</label>
           <input type="text" id="nombreEmpresa" name="nombreEmpresa" required>
@@ -51,7 +49,6 @@
 
         <div class="input-group">
           <label for="cargo">Cargo del representante:</label>
-          <!-- Importante: name="cargo" -->
           <input type="text" id="cargo" name="cargo" required>
         </div>
 
@@ -65,6 +62,7 @@
     </div>
   </div>
 
+  <!-- Incluimos login.js al final para que encuentre los elementos del DOM -->
+  <script src="js/login.js"></script>
 </body>
-
 </html>

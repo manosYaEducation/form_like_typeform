@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
     $stmtScore->close();
 
     // 4. Determinar la clasificación (texto corto)
-    if ($finalScore > 75) {
+    if ($finalScore == 75) {
         $classification = "nivel A. Modo Circular";
     } elseif ($finalScore > 50) {
         $classification = "nivel B. Modo de transición";

@@ -1,7 +1,5 @@
-// user_auth.php
 <?php
 session_start();
-
 require_once 'Database.php';
 
 try {
@@ -17,14 +15,18 @@ try {
         $correo              = $_POST['correo']              ?? '';
 
         // Validar
-        if (empty($nombreEmpresa) || empty($rutEmpresa) || empty($nombreRepresentante) || empty($cargo) || empty($correo)) {
-            // Mostrar un mensaje de error y salir
-            // O podrías redirigir a login.html con un mensaje
-            echo "<script>alert('Todos los campos son obligatorios.');window.history.back();</script>";
+        if (empty($nombreEmpresa) || empty($rutEmpresa) || empty($nombreRepresentante) 
+            || empty($cargo) || empty($correo)) {
+            // Retornar JSON de error
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode([
+                "status" => "error",
+                "message" => "Todos los campos son obligatorios."
+            ]);
             exit;
         }
 
-        // Insertar/actualizar
+        // Insertar/actualizar en la tabla users
         $stmt = $conn->prepare("SELECT id FROM users WHERE rut=?");
         $stmt->bind_param("s", $rutEmpresa);
         $stmt->execute();
@@ -37,7 +39,13 @@ try {
                 SET nombre_empresa=?, nombre_representante=?, cargo=?, correo=?
                 WHERE rut=?
             ");
-            $stmtUpdate->bind_param("sssss", $nombreEmpresa, $nombreRepresentante, $cargo, $correo, $rutEmpresa);
+            $stmtUpdate->bind_param("sssss", 
+                $nombreEmpresa, 
+                $nombreRepresentante, 
+                $cargo, 
+                $correo, 
+                $rutEmpresa
+            );
             $stmtUpdate->execute();
             $stmtUpdate->close();
         } else {
@@ -46,7 +54,13 @@ try {
                 INSERT INTO users (nombre_empresa, rut, nombre_representante, cargo, correo)
                 VALUES (?,?,?,?,?)
             ");
-            $stmtInsert->bind_param("sssss", $nombreEmpresa, $rutEmpresa, $nombreRepresentante, $cargo, $correo);
+            $stmtInsert->bind_param("sssss", 
+                $nombreEmpresa, 
+                $rutEmpresa, 
+                $nombreRepresentante, 
+                $cargo, 
+                $correo
+            );
             $stmtInsert->execute();
             $stmtInsert->close();
         }
@@ -60,14 +74,25 @@ try {
         $_SESSION['cargo'] = $cargo;
         $_SESSION['correo'] = $correo;
 
-        // Redirigir a index.html
-        header("Location: modelo_negocio.html");
+        // En vez de header("Location: ..."), retornamos JSON
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode([
+            "status" => "success",
+            "message" => "Autenticación exitosa"
+        ]);
         exit;
     } else {
-        echo "Método no permitido o acción desconocida.";
+        echo json_encode([
+            "status" => "error",
+            "message" => "Método no permitido o acción desconocida."
+        ]);
         exit;
     }
 } catch (Exception $e) {
-    echo "Error en la autenticación: " . $e->getMessage();
+    echo json_encode([
+        "status" => "error",
+        "message" => "Error en la autenticación: " . $e->getMessage()
+    ]);
     exit;
 }
+?>
