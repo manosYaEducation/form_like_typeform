@@ -119,7 +119,7 @@ body::before {
     opacity: 0;
 
     transform: translateX(-100%); /* Posición inicial fuera de pantalla (izquierda) */
-    animation: slideIn 23s ease-out forwards;
+    animation: slideIn 1s ease-out forwards;
 }
 
 @keyframes slideIn {

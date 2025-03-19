@@ -279,20 +279,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
         $mail->send();
         // Listo, el correo fue enviado: redirigimos a respuestafinal.html
         // Pasamos puntaje y clasificación en la URL
-        $finalUrl = "Front/html/respuestafinal.html?puntaje={$finalScore}&clasificacion=" . urlencode($classification);
+        $finalUrl = "respuestafinal.html?puntaje={$finalScore}&clasificacion=" . urlencode($classification);
         header("Location: $finalUrl");
         exit;
 
     } catch (Exception $e) {
         // Si falla el correo, redirigimos con un error
         $errorMail = urlencode($mail->ErrorInfo);
-        header("Location: Front/html/respuestafinal.html?puntaje=0&clasificacion=$errorMail");
+        header("Location: respuestafinal.html?puntaje=0&clasificacion=$errorMail");
         exit;
     }
 
 } else {
     // Si no es POST ni GET, se muestra el mensaje de error
-    header("Location: Front/html/respuestafinal.html?puntaje=0&clasificacion=MetodoNoPermitido");
+    header("Location: respuestafinal.html?puntaje=0&clasificacion=MetodoNoPermitido");
     exit;
 }
 ?>

@@ -7,7 +7,7 @@ class Database {
     public $user = 'root';
     public $password = '';
     public $database = 'forms';
-    public $port = 3306;
+    public $port = 3307;
 
     public function __construct(){
         // Se añade el puerto en la conexión
