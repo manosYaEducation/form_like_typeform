@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
 
     if (empty($userEmail) || empty($userRut)) {
         // Si falta info, redirigimos con un mensaje de error en la URL
-        header("Location: respuestafinal.html?puntaje=0&clasificacion=ErrorSesion");
+        header("Location: Front/html/respuestafinal.html?puntaje=0&clasificacion=ErrorSesion");
         exit;
     }
 
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
 
     // Si no están respondidas todas, redirigimos con un mensaje de error
     if ($answered < $totalQuestions) {
-        header("Location: respuestafinal.html?puntaje=0&clasificacion=ErrorNoCompletado");
+        header("Location: Front/html/respuestafinal.html?puntaje=0&clasificacion=ErrorNoCompletado");
         exit;
     }
 
@@ -161,8 +161,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
         </ul>";
     } elseif ($finalScore > 50) {
         $sugerencia = "
-        <p><strong>🌱 En Ruta Sostenible</strong></p>
-        <p>Las empresas en este nivel han avanzado significativamente en su transición hacia la economía circular. Ahora, el reto es optimizar sus prácticas y escalar su impacto para alcanzar el Nivel A.</p>
+        <p><strong> Las empresas en este nivel han avanzado significativamente en su transición hacia la economía circular. Ahora, el reto es optimizar sus prácticas y escalar su impacto para alcanzar el Nivel A</p>
     
         <h3>1. Estrategia y Cultura Organizacional</h3>
         <p><strong>📌 Sugerencias:</strong></p>
@@ -176,16 +175,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
         <h3>2. Gestión de Recursos y Residuos</h3>
         <p><strong>📌 Sugerencias:</strong></p>
         <ul>
-            <li>✅ Implementar un sistema de economía circular dentro de la empresa.</li>
+            <li>✅ Implementar un sistema de economía circular dentro de la empresa (ej. reutilización de materiales).</li>
             <li>✅ Reducir aún más el consumo de recursos mediante eficiencia energética y optimización de procesos.</li>
             <li>✅ Buscar certificaciones ambientales que validen las buenas prácticas de la empresa.</li>
             <li>✅ Crear indicadores de reducción de residuos y consumo de energía para medir el progreso.</li>
+        </ul>
+    
+        <h3>3. Diseño de Productos y Servicios</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Incorporar principios de ecodiseño en toda la línea de productos o servicios.</li>
+            <li>✅ Ofrecer alternativas reutilizables o compostables en los empaques.</li>
+            <li>✅ Explorar modelos de negocio basados en la servitización (pago por uso en lugar de compra).</li>
+            <li>✅ Desarrollar soluciones innovadoras que reduzcan el impacto ambiental en la producción.</li>
+        </ul>
+    
+        <h3>4. Modelos de Negocio Circulares</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Evaluar nuevas oportunidades de negocio que incluyan reutilización, remanufactura o reciclaje.</li>
+            <li>✅ Desarrollar programas de economía circular con clientes (devolución de productos, reuso, etc.).</li>
+            <li>✅ Incorporar la digitalización para mejorar la eficiencia y reducir desperdicios.</li>
+            <li>✅ Fortalecer alianzas con otras empresas para impulsar prácticas circulares en conjunto.</li>
+        </ul>
+    
+        <h3>5. Cadena de Suministro y Proveedores</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Exigir criterios de sostenibilidad en la elección de proveedores.</li>
+            <li>✅ Implementar logística inversa para recuperar productos o materiales usados.</li>
+            <li>✅ Optimizar el transporte para reducir emisiones de carbono.</li>
+            <li>✅ Incluir prácticas de trazabilidad para garantizar el origen sostenible de los insumos.</li>
+        </ul>
+    
+        <h3>6. Relación con Clientes y Comunidad</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Generar contenido educativo para sensibilizar a los clientes sobre sostenibilidad.</li>
+            <li>✅ Diseñar incentivos para clientes que participen en iniciativas circulares.</li>
+            <li>✅ Fomentar la colaboración con la comunidad en proyectos de impacto ambiental.</li>
+            <li>✅ Aumentar la comunicación sobre los avances en economía circular para fortalecer la marca.</li>
         </ul>";
     } elseif ($finalScore > 25) {
         $sugerencia = "
-        <p><strong>🌱 En proceso de transformación</strong></p>
-        <p>Las empresas en este nivel han comenzado su camino hacia la economía circular, pero aún tienen desafíos que superar. La clave está en fortalecer las iniciativas existentes y hacer ajustes estratégicos para acelerar el impacto positivo.</p>
-        
+        <p><strong> 🌱 En proceso de transformación, Las empresas en este nivel han comenzado su camino hacia la economía circular, pero aún tienen desafíos que superar. La clave está en fortalecer las iniciativas existentes y hacer ajustes estratégicos para acelerar el impacto positivo.</p>
+    
         <h3>1. Estrategia y Cultura Organizacional</h3>
         <p><strong>📌 Sugerencias:</strong></p>
         <ul>
@@ -193,11 +227,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
             <li>✅ Medir y comunicar los avances en economía circular dentro del equipo.</li>
             <li>✅ Implementar políticas internas de reducción de residuos y consumo responsable.</li>
             <li>✅ Incorporar la sostenibilidad en la misión y valores de la empresa.</li>
+        </ul>
+    
+        <h3>2. Gestión de Recursos y Residuos</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Optimizar la eficiencia en el uso de materiales para reducir desperdicios.</li>
+            <li>✅ Buscar alianzas con gestores de residuos para mejorar el reciclaje y reutilización.</li>
+            <li>✅ Implementar un sistema de medición del impacto ambiental de los procesos productivos.</li>
+            <li>✅ Identificar oportunidades para reducir el uso de recursos como agua y energía.</li>
+        </ul>
+    
+        <h3>3. Diseño de Productos y Servicios</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Explorar mejoras en los materiales utilizados para reducir la huella ambiental.</li>
+            <li>✅ Diseñar productos con mayor vida útil o facilidad de reparación.</li>
+            <li>✅ Incluir el enfoque de ecodiseño en el desarrollo de nuevos productos.</li>
+            <li>✅ Evaluar la posibilidad de ofrecer opciones de recarga, reutilización o devolución de productos.</li>
+        </ul>
+    
+        <h3>4. Modelos de Negocio Circulares</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Analizar modelos de negocio basados en la reutilización o economía compartida.</li>
+            <li>✅ Explorar nuevos mercados para darle valor a los residuos generados.</li>
+            <li>✅ Desarrollar estrategias para alargar el ciclo de vida de los productos.</li>
+            <li>✅ Evaluar la implementación de esquemas de devolución y reacondicionamiento.</li>
+        </ul>
+    
+        <h3>5. Cadena de Suministro y Proveedores</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Identificar proveedores con certificaciones ambientales y políticas circulares.</li>
+            <li>✅ Establecer criterios de selección que prioricen materiales sostenibles.</li>
+            <li>✅ Optimizar la logística para reducir la huella de carbono en el transporte.</li>
+            <li>✅ Generar acuerdos con proveedores para reducir el uso de embalajes innecesarios.</li>
+        </ul>
+    
+        <h3>6. Relación con Clientes y Comunidad</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Comunicar activamente los avances y compromisos de la empresa con la economía circular.</li>
+            <li>✅ Diseñar programas de fidelización basados en la sostenibilidad.</li>
+            <li>✅ Fomentar la participación de clientes en iniciativas de reciclaje o reutilización.</li>
+            <li>✅ Crear campañas de sensibilización sobre la importancia del consumo responsable.</li>
         </ul>";
-    } else {
+    } elseif ($finalScore < 25) {
         $sugerencia = "
-        <p><strong>🛑 Alerta Ambiental</strong></p>
-        <p>Las empresas en este nivel aún no han incorporado prácticas de economía circular de manera significativa. Es fundamental comenzar con cambios básicos y estructurar un plan de acción para mejorar la sostenibilidad.</p>
+        <p><strong> 🛑Alerta Ambiental Las empresas en este nivel aún no han incorporado prácticas de economía circular de manera significativa. Es fundamental comenzar con cambios básicos y estructurar un plan de acción para mejorar la sostenibilidad.</p>
     
         <h3>1. Estrategia y Cultura Organizacional</h3>
         <p><strong>📌 Sugerencias:</strong></p>
@@ -206,6 +284,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
             <li>✅ Definir una estrategia clara de economía circular con objetivos a corto y largo plazo.</li>
             <li>✅ Capacitar al personal en conceptos básicos de sostenibilidad y eficiencia de recursos.</li>
             <li>✅ Iniciar un comité interno de sostenibilidad para fomentar la participación activa.</li>
+        </ul>
+    
+        <h3>2. Gestión de Recursos y Residuos</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Realizar un diagnóstico del uso de recursos para identificar desperdicios.</li>
+            <li>✅ Implementar acciones básicas de reducción de residuos y separación de materiales reciclables.</li>
+            <li>✅ Explorar opciones para reducir el consumo de energía y agua en los procesos.</li>
+            <li>✅ Buscar asesoramiento externo sobre prácticas de economía circular aplicables a la empresa.</li>
+        </ul>
+    
+        <h3>3. Diseño de Productos y Servicios</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Identificar oportunidades para reducir la generación de desechos en los productos/servicios.</li>
+            <li>✅ Evaluar cómo se pueden mejorar los materiales utilizados para hacerlos más sostenibles.</li>
+            <li>✅ Explorar la posibilidad de ofrecer opciones de reutilización o reciclaje de productos.</li>
+            <li>✅ Iniciar conversaciones con proveedores sobre opciones de materiales circulares.</li>
+        </ul>
+    
+        <h3>4. Modelos de Negocio Circulares</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Investigar casos de éxito de empresas similares que hayan implementado economía circular.</li>
+            <li>✅ Explorar oportunidades para monetizar residuos o subproductos de la empresa.</li>
+            <li>✅ Evaluar si existen procesos dentro del negocio que puedan optimizarse para reducir desperdicios.</li>
+            <li>✅ Buscar apoyo en programas de financiamiento o asesoría en economía circular.</li>
+        </ul>
+    
+        <h3>5. Cadena de Suministro y Proveedores</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Identificar qué porcentaje de los proveedores tienen políticas sostenibles.</li>
+            <li>✅ Buscar alternativas de proveedores que ofrezcan materiales reciclados o biodegradables.</li>
+            <li>✅ Establecer una política de compras que priorice la reducción de desperdicios.</li>
+            <li>✅ Comenzar a medir la cantidad de residuos generados en la producción y distribución.</li>
+        </ul>
+    
+        <h3>6. Relación con Clientes y Comunidad</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Educar a los clientes sobre el impacto ambiental de los productos/servicios.</li>
+            <li>✅ Incluir mensajes de sostenibilidad en la comunicación de la empresa.</li>
+            <li>✅ Fomentar pequeños cambios en la experiencia del cliente que reduzcan el impacto ambiental.</li>
+            <li>✅ Explorar la posibilidad de alianzas con organizaciones que promuevan la sostenibilidad.</li>
         </ul>";
     }
     
@@ -217,7 +340,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
     if (!$stmtInsert->execute()) {
         // Si falla la inserción, redirigimos con un error
         $errorMsg = urlencode("InsertError: " . $stmtInsert->error);
-        header("Location: respuestafinal.html?puntaje=0&clasificacion=$errorMsg");
+        header("Location: Front/html/respuestafinal.html?puntaje=0&clasificacion=$errorMsg");
         exit;
     }
     $stmtInsert->close();
@@ -403,7 +526,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
         $mail->send();
         // Listo, el correo fue enviado: redirigimos a respuestafinal.html
         // Pasamos puntaje y clasificación en la URL
-        $finalUrl = "front/html/respuestafinal.html?puntaje={$finalScore}&clasificacion=" . urlencode($classification) . "&mensaje=" . urlencode($message). "&sugerencia=" . urlencode($sugerencia);
+        $finalUrl = "Front/html/respuestafinal.html?puntaje={$finalScore}&clasificacion=" . urlencode($classification) . "&mensaje=" . urlencode($message). "&sugerencia=" . urlencode($sugerencia);
 header("Location: $finalUrl");
 exit;
 
@@ -412,13 +535,13 @@ exit;
     } catch (Exception $e) {
         // Si falla el correo, redirigimos con un error
         $errorMail = urlencode($mail->ErrorInfo);
-        header("Location: front/html/respuestafinal.html?puntaje=0&clasificacion=$errorMail");
+        header("Location: Front/html/respuestafinal.html?puntaje=0&clasificacion=$errorMail");
         exit;
     }
 
 } else {
     // Si no es POST ni GET, se muestra el mensaje de error
-    header("Location: front/html/respuestafinal.html?puntaje=0&clasificacion=MetodoNoPermitido");
+    header("Location: Front/html/respuestafinal.html?puntaje=0&clasificacion=MetodoNoPermitido");
     exit;
 }
 ?>
