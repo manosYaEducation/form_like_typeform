@@ -41,14 +41,18 @@
                 <input type="submit" value="Volver al Inicio">
             </form>
         </div>
+        <div class="sugerencia-container">
+            <p id="sugerencia"></p>
+        </div>
     </div>
-
+    
     <!-- Extraer los parámetros de la URL y mostrarlos -->
     <script>
         const params = new URLSearchParams(window.location.search);
         document.getElementById("puntaje").textContent = params.get("puntaje") || "No disponible";
         document.getElementById("clasificacion").textContent = params.get("clasificacion") || "No disponible";
         document.getElementById("mensaje").textContent = params.get("mensaje") || "No disponible";
+        document.getElementById("sugerencia").innerHTML = decodeURIComponent(params.get("sugerencia")) || "No disponible";
     </script>
     <script src="../../js/auth.js"></script>
 

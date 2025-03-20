@@ -219,3 +219,28 @@ p {
     transform: scale(1.03);
     box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.5);
 }
+.sugerencia-container {
+    width: 50%;
+    padding: 15%;
+    background: rgba(0, 0, 0, 0.26);
+    /* Fondo semitransparente */
+    backdrop-filter: blur(2px);
+    /* Efecto de cristal más pronunciado */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+
+    transform: translateX(-200%);
+    animation: slideIn 1.5s ease-out forwards;
+}
+#sugerencia {
+    text-align: center;
+    font-weight: bold;
+    color: rgb(141, 255, 118);
+    font-size: 13px;
+}

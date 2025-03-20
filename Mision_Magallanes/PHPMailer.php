@@ -101,6 +101,115 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
         $message = "🌍 Es momento de repensar tus prácticas. La sostenibilidad no es una opción, es una necesidad. ¿Aceptas el desafío de transformar tu empresa y ser parte del cambio?";
     }
 
+    if ($finalScore == 75) {
+        $sugerencia = "
+        <p><strong>🌍 ¡Felicidades! Tu empresa es un ejemplo de transformación sostenible.</strong></p>
+        <p>El reto ahora es seguir innovando y ser un motor de cambio para toda la región de Magallanes. 🚀♻️</p>
+    
+        <h3>1. Estrategia y Cultura Organizacional</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Convertirse en un líder visible en sostenibilidad a nivel regional y nacional.</li>
+            <li>✅ Establecer metas de carbono neutralidad y alinearse con los Objetivos de Desarrollo Sostenible (ODS).</li>
+            <li>✅ Medir y mejorar continuamente el impacto ambiental con certificaciones como ISO 14001 o Empresas B.</li>
+            <li>✅ Fomentar una cultura de innovación abierta, donde empleados y aliados contribuyan con ideas circulares.</li>
+        </ul>
+    
+        <h3>2. Gestión de Recursos y Residuos</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Implementar estrategias de cero residuos en la producción y operación.</li>
+            <li>✅ Desarrollar tecnologías propias para la reutilización de subproductos.</li>
+            <li>✅ Compartir conocimientos con otras empresas para impulsar un ecosistema circular.</li>
+            <li>✅ Expandir programas de economía circular a toda la cadena de valor.</li>
+        </ul>
+    
+        <h3>3. Diseño de Productos y Servicios</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Innovar en materiales biodegradables, reciclables o de larga duración.</li>
+            <li>✅ Crear modelos de negocio basados en economía circular, como alquiler, reacondicionamiento o reventa.</li>
+            <li>✅ Ofrecer transparencia total sobre el ciclo de vida de los productos.</li>
+            <li>✅ Involucrar a los clientes en la co-creación de soluciones sostenibles.</li>
+        </ul>
+    
+        <h3>4. Modelos de Negocio Circulares</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Explorar nuevas oportunidades en economía regenerativa y producción responsable.</li>
+            <li>✅ Implementar sistemas de remanufactura y reparación para reducir el consumo de materias primas.</li>
+            <li>✅ Crear plataformas digitales para gestionar la recolección, reutilización y reciclaje de productos.</li>
+            <li>✅ Desarrollar programas de fidelización que premien prácticas sostenibles en los clientes.</li>
+        </ul>
+    
+        <h3>5. Cadena de Suministro y Proveedores</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Exigir criterios de sostenibilidad estrictos en todos los proveedores.</li>
+            <li>✅ Crear un modelo de abastecimiento basado en la economía local y circular.</li>
+            <li>✅ Implementar logística verde con reducción de emisiones y optimización de rutas.</li>
+            <li>✅ Promover estándares de economía circular en toda la industria.</li>
+        </ul>
+    
+        <h3>6. Relación con Clientes y Comunidad</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Compartir los logros de la empresa para inspirar a otras organizaciones.</li>
+            <li>✅ Diseñar campañas de concientización en sostenibilidad para clientes y aliados.</li>
+            <li>✅ Co-crear proyectos de impacto con la comunidad y universidades.</li>
+            <li>✅ Participar en redes y foros de economía circular para ampliar el alcance de las acciones sostenibles.</li>
+        </ul>";
+    } elseif ($finalScore > 50) {
+        $sugerencia = "
+        <p><strong>🌱 En Ruta Sostenible</strong></p>
+        <p>Las empresas en este nivel han avanzado significativamente en su transición hacia la economía circular. Ahora, el reto es optimizar sus prácticas y escalar su impacto para alcanzar el Nivel A.</p>
+    
+        <h3>1. Estrategia y Cultura Organizacional</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Integrar la sostenibilidad como un pilar central en la estrategia de negocio.</li>
+            <li>✅ Medir y reportar periódicamente el impacto ambiental de la empresa.</li>
+            <li>✅ Fortalecer la cultura organizacional con programas de formación en economía circular.</li>
+            <li>✅ Establecer compromisos públicos de sostenibilidad para generar confianza y transparencia.</li>
+        </ul>
+    
+        <h3>2. Gestión de Recursos y Residuos</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Implementar un sistema de economía circular dentro de la empresa.</li>
+            <li>✅ Reducir aún más el consumo de recursos mediante eficiencia energética y optimización de procesos.</li>
+            <li>✅ Buscar certificaciones ambientales que validen las buenas prácticas de la empresa.</li>
+            <li>✅ Crear indicadores de reducción de residuos y consumo de energía para medir el progreso.</li>
+        </ul>";
+    } elseif ($finalScore > 25) {
+        $sugerencia = "
+        <p><strong>🌱 En proceso de transformación</strong></p>
+        <p>Las empresas en este nivel han comenzado su camino hacia la economía circular, pero aún tienen desafíos que superar. La clave está en fortalecer las iniciativas existentes y hacer ajustes estratégicos para acelerar el impacto positivo.</p>
+        
+        <h3>1. Estrategia y Cultura Organizacional</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Involucrar a más áreas de la empresa en la transición hacia la sostenibilidad.</li>
+            <li>✅ Medir y comunicar los avances en economía circular dentro del equipo.</li>
+            <li>✅ Implementar políticas internas de reducción de residuos y consumo responsable.</li>
+            <li>✅ Incorporar la sostenibilidad en la misión y valores de la empresa.</li>
+        </ul>";
+    } else {
+        $sugerencia = "
+        <p><strong>🛑 Alerta Ambiental</strong></p>
+        <p>Las empresas en este nivel aún no han incorporado prácticas de economía circular de manera significativa. Es fundamental comenzar con cambios básicos y estructurar un plan de acción para mejorar la sostenibilidad.</p>
+    
+        <h3>1. Estrategia y Cultura Organizacional</h3>
+        <p><strong>📌 Sugerencias:</strong></p>
+        <ul>
+            <li>✅ Sensibilizar al equipo sobre la importancia de la sostenibilidad y su impacto en la empresa.</li>
+            <li>✅ Definir una estrategia clara de economía circular con objetivos a corto y largo plazo.</li>
+            <li>✅ Capacitar al personal en conceptos básicos de sostenibilidad y eficiencia de recursos.</li>
+            <li>✅ Iniciar un comité interno de sostenibilidad para fomentar la participación activa.</li>
+        </ul>";
+    }
+    
+
     // 5. Insertar el resultado en la tabla 'results'
     $sqlInsert = "INSERT INTO results (correo, user_rut, resultado, clasificacion) VALUES (?, ?, ?, ?)";
     $stmtInsert = $conn->prepare($sqlInsert);
@@ -274,6 +383,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
         <p>Como representante de <strong>{$nombreEmpresa}</strong>, le informamos que ha completado la encuesta.</p>
         <p>Tu puntaje obtenido es: <strong>{$finalScore}</strong></p>
         <p>Tu clasificación es: <strong>{$classification}</strong></p>
+        <p><strong>Recomendación:</strong></p>
+        {$sugerencia}
         <hr>
         <p>{$message}</p>
         <hr>
@@ -292,7 +403,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
         $mail->send();
         // Listo, el correo fue enviado: redirigimos a respuestafinal.html
         // Pasamos puntaje y clasificación en la URL
-        $finalUrl = "front/html/respuestafinal.html?puntaje={$finalScore}&clasificacion=" . urlencode($classification) . "&mensaje=" . urlencode($message);
+        $finalUrl = "front/html/respuestafinal.html?puntaje={$finalScore}&clasificacion=" . urlencode($classification) . "&mensaje=" . urlencode($message). "&sugerencia=" . urlencode($sugerencia);
 header("Location: $finalUrl");
 exit;
 
