@@ -221,7 +221,7 @@ p {
 }
 .sugerencia-container {
     width: 50%;
-    padding: 15%;
+    /* padding: 15%; */
     background: rgba(0, 0, 0, 0.26);
     /* Fondo semitransparente */
     backdrop-filter: blur(2px);
@@ -239,8 +239,25 @@ p {
     animation: slideIn 1.5s ease-out forwards;
 }
 #sugerencia {
-    text-align: center;
+    text-align: left;
     font-weight: bold;
     color: rgb(141, 255, 118);
-    font-size: 13px;
+    font-size: 15px;
+}
+@media
+only screen and (max-width: 600px) {
+    .split-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .image-section,
+    .result-container {
+        width: 100%;
+        height: 50vh;
+    }
+    .sugerencia-container {
+        width: 100%;
+        height: 50vh;
+    }
 }
