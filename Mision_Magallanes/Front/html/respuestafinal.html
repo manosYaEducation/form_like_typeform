@@ -20,9 +20,9 @@
             <img src="../img/logo.png" alt="Logo">
             <h1 id="logo">Magallanes <br><span>Sostenible</span></h1>
         </div>
-        <!-- <div class="welcome-message">
+        <div class="welcome-message">
             <p>Beneficios Pasos Testimonios Nosotros Blog</p>
-        </div> -->
+        </div>
         <div class="menu-icon">
             &#9776;
         </div>
@@ -37,22 +37,75 @@
                 <p>Tu clasificación es: <span id="clasificacion"></span></p>
                 <p><span id="mensaje"></span></p>
             </div>
+            <button id="sugerenciasButton" class="button">
+                <span class="label">Sugerencias</span>
+                <span class="gradient-container">
+                    <span class="gradient"></span>
+                </span>
+            </button>
             <form action="../../index.html" method="get">
                 <input type="submit" value="Volver al Inicio">
             </form>
         </div>
-        <div class="sugerencia-container">
-            <p id="sugerencia"></p>
+        <div class="sugerencia-container" id="sugerenciaContainer">
+            <div class="sugerencia-grid" id="sugerenciaGrid"></div>
         </div>
     </div>
-    
+
     <!-- Extraer los parámetros de la URL y mostrarlos -->
     <script>
         const params = new URLSearchParams(window.location.search);
         document.getElementById("puntaje").textContent = params.get("puntaje") || "No disponible";
         document.getElementById("clasificacion").textContent = params.get("clasificacion") || "No disponible";
         document.getElementById("mensaje").textContent = params.get("mensaje") || "No disponible";
-        document.getElementById("sugerencia").innerHTML = decodeURIComponent(params.get("sugerencia")) || "No disponible";
+
+        const sugerencia = decodeURIComponent(params.get("sugerencia")) || "No disponible";
+        const sugerenciaGrid = document.getElementById("sugerenciaGrid");
+
+        if (sugerencia !== "No disponible") {
+            console.log("Contenido de sugerencia:", sugerencia); // Depuración
+
+            // Crear un contenedor temporal para parsear el HTML
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = sugerencia;
+
+            // Seleccionar todas las secciones (h3 y su contenido siguiente)
+            const sections = tempDiv.querySelectorAll("h3");
+
+            sections.forEach(section => {
+                const card = document.createElement("div");
+                card.className = "sugerencia-card";
+
+                const title = document.createElement("h3");
+                title.textContent = section.textContent;
+                card.appendChild(title);
+
+                // Obtener el contenido siguiente al h3 (p, ul, etc.)
+                let nextElement = section.nextElementSibling;
+                while (nextElement && nextElement.tagName !== "H3") {
+                    const content = document.createElement("div");
+                    content.innerHTML = nextElement.innerHTML;
+                    card.appendChild(content);
+                    nextElement = nextElement.nextElementSibling;
+                }
+
+                sugerenciaGrid.appendChild(card);
+            });
+        }
+
+        document.getElementById("sugerenciaContainer").style.display = "none";
+        document.getElementById("sugerenciasButton").addEventListener("click", function () {
+            const sugerenciaContainer = document.getElementById("sugerenciaContainer");
+            const resultContainer = document.querySelector(".result-container");
+
+            if (sugerenciaContainer.style.display === "none") {
+                sugerenciaContainer.style.display = "flex";
+                resultContainer.style.display = "none";
+            } else {
+                sugerenciaContainer.style.display = "none";
+                resultContainer.style.display = "flex";
+            }
+        });
     </script>
     <script src="../../js/auth.js"></script>
 
