@@ -497,6 +497,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $_SERVER["REQUEST_METHOD"] == "GET")
                 color: #aaa;
                 margin-top: 20px;
             }
+            li {
+                color:white;
+        }
         </style>
     </head>
    <body>
