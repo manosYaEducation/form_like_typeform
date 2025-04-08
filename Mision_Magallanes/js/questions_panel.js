@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function(){
   
     // --- Funciones CRUD ---
     function listQuestions(){
-      fetch('fetch_questions_crud.php?action=list')
+      fetch('../../fetch_questions_crud.php?action=list')
         .then(res => res.json())
         .then(data => {
           if(data.status === 'success'){
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function(){
       formData.append('option_d', option_d);
       formData.append('category_id', category_id);
   
-      fetch('fetch_questions_crud.php?action=add', {
+      fetch('../../fetch_questions_crud.php?action=add', {
         method: 'POST',
         body: formData
       })
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function(){
       formData.append('option_d', option_d);
       formData.append('category_id', category_id);
   
-      fetch('fetch_questions_crud.php?action=edit', {
+      fetch('../../fetch_questions_crud.php?action=edit', {
         method: 'POST',
         body: formData
       })
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function(){
       const formData = new FormData();
       formData.append('id', id);
   
-      fetch('fetch_questions_crud.php?action=delete', {
+      fetch('../../fetch_questions_crud.php?action=delete', {
         method: 'POST',
         body: formData
       })
@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function(){
   
     // --- Cargar categorías para el <select> ---
     function loadCategories(){
-      fetch('fetch_categories.php?action=list')
+      fetch('../../fetch_categories.php?action=list')
         .then(res => res.json())
         .then(data => {
           if(data.status === 'success'){
