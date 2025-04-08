@@ -6,8 +6,8 @@ class Database {
     public $host = '127.0.0.1';  // localhost
     public $user = 'root';
     public $password = '';
-    public $database = 'forms';
-    public $port = 3306;
+    public $database = 'forms2';
+    public $port = 3307;
 
     public function __construct(){
         // Se añade el puerto en la conexión
