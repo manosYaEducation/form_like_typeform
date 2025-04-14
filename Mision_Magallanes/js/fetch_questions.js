@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() { 
+document.addEventListener("DOMContentLoaded", function () {
   // 1. Tomar category_id de la URL
   const params = new URLSearchParams(window.location.search);
   let categoryId = parseInt(params.get('category_id')) || 0;
@@ -49,6 +49,25 @@ document.addEventListener("DOMContentLoaded", function() {
   function buildSliderItems() {
     const sliderContainer = document.getElementById("sliderContainer");
     sliderContainer.innerHTML = "";
+
+    // Crear contenedor para el botón "Pregunta anterior"
+    const prevQuestionContainer = document.createElement('div');
+    prevQuestionContainer.id = "prevQuestionContainer";
+    prevQuestionContainer.className = "prev-question-container";
+
+    // Crear botón "Pregunta anterior"
+    const prevQuestionBtn = document.createElement('button');
+    prevQuestionBtn.className = "prev-question-btn";
+    prevQuestionBtn.textContent = "Pregunta anterior";
+    prevQuestionBtn.addEventListener('click', () => {
+      if (!isAnimating && active > 0) {
+        active--;
+        loadShow();
+      }
+    });
+
+    prevQuestionContainer.appendChild(prevQuestionBtn);
+    sliderContainer.appendChild(prevQuestionContainer);
 
     questions.forEach((q, index) => {
       const itemDiv = document.createElement('div');
@@ -206,9 +225,13 @@ document.addEventListener("DOMContentLoaded", function() {
     if (isAnimating) return;
     isAnimating = true;
 
-    const items = document.querySelectorAll('.item.quiz-card');
-    items.forEach(item => {
+    const items = document.querySelectorAll('.item');
+    items.forEach((item, index) => {
       item.style.transition = 'all 0.75s';
+      item.classList.remove('active');
+      if (index === active) {
+        item.classList.add('active');
+      }
     });
 
     items[active].style.transform = 'translate(-50%, -50%) scale(1.5)';
@@ -288,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // 9. Configurar el botón "prev" para retroceder en la pregunta
   if (prevButton) {
-    prevButton.addEventListener('click', function() {
+    prevButton.addEventListener('click', function () {
       if (!isAnimating && active > 0) {
         active--;
         loadShow();
